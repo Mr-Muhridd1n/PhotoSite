@@ -3,6 +3,7 @@ import { useFetch } from "./hooks/useFetch";
 import { FcLike } from "react-icons/fc";
 import { FcLikePlaceholder } from "react-icons/fc";
 import { CiSaveDown2 } from "react-icons/ci";
+import toast from "react-hot-toast";
 
 function App() {
   const [searchText, setSearchText] = useState("porshe");
@@ -24,7 +25,8 @@ function App() {
 
   const hendleSubmit = (e) => {
     e.preventDefault();
-
+    if (!searchText)
+      return toast.error("Xatolik iltimos biror nima kiriting !");
     setUrl(
       `https://api.unsplash.com/search/photos?query=${searchText}&per_page=30&client_id=${accesseKey}`
     );
@@ -62,7 +64,7 @@ function App() {
               onChange={(e) => setSearchText(e.target.value)}
             />
           </label>
-          <button className="btn btn-active">Search</button>
+          <button className="btn btn-primary">Search</button>
         </form>
       </nav>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
